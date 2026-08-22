@@ -6,7 +6,7 @@ echelonize; expose get_basis(label) -> list of 4 mpmath coefficient lists
 Accuracy note: x_n known to ~1e-92 absolute; a_n = x_n * rho^-n loses
 ~0.0082n digits; at NUSE=250 that's ~2 digits -> a_n good to ~1e-89.
 """
-import re, sys
+import os, re, sys
 from mpmath import mp, mpf, mpc, matrix, lu_solve
 
 mp.dps = 110
@@ -35,6 +35,11 @@ NUMRE = re.compile(r'\[\s*(-?[0-9][0-9.]*(?:E-?\d+)?)p\d+\s*,\s*(-?[0-9][0-9.]*(
 
 def get_basis(label, nuse=NUSE, path=None):
     fn = path or f'label{label}-out-p100.m'
+    if not os.path.exists(fn):
+        # fresh-clone layout: solver outputs live in ../data
+        alt = os.path.join('..', 'data', f'label{label}-out-p100.m')
+        if os.path.exists(alt):
+            fn = alt
     txt = open(fn).read()
     blocks = txt.split('ComplexField(100) |')
     assert len(blocks) >= 5, f"unexpected .m structure ({len(blocks)} blocks)"

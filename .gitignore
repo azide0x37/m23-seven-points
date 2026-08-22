@@ -1,0 +1,5 @@
+pipeline/__pycache__/
+pipeline/*.pkl
+pipeline/*.log
+pipeline/partition-p100-receipt.json
+pipeline/iso-beta-receipt.json

@@ -1,42 +1,89 @@
-# m23-seven-points
+# The Galois action on the seven M23 Hurwitz points
 
-Artifacts for: **The Galois action on the seven M23 Hurwitz points**
-(A. W. Templeton).
+**Paper (PDF): [paper/main.pdf](paper/main.pdf)** · LaTeX source:
+[paper/main.tex](paper/main.tex)
 
-The paper determines, for the seven Hurwitz points through which
-Huang–Jackson–Lee–Poonen–Pries–Zhang (arXiv:2608.08538) realized M23
-as a Galois group over Q: the action of complex conjugation
-(unconditionally: (1 2)(5 7)), the numerically certified G_Q-partition
-(1+6, image S6 — maximal given the fixed point), the exact 23-adic
-structure (1+2+4 tame, label 6 the unique inertia-fixed point), and an
-exact negative theorem (finite-level GT constraints at M23 permit all
-of S7).
+Computational artifacts for *The Galois action on the seven M23
+Hurwitz points* (Alexander West Templeton, 2026). arXiv submission in
+preparation; this repository is the artifact of record and will be
+archived with a DOI at publication.
 
-## Reproduce
+## What the paper establishes
 
-From `pipeline/`, with the seven solver outputs in place
-(`data/label{1..7}-out-p100.m`, symlink or copy them beside the
-scripts):
+Huang, Jackson, Lee, Poonen, Pries, and Zhang (arXiv:2608.08538)
+realized M23 as a Galois group over Q by finding a G_Q-fixed point
+among the seven Hurwitz points of Ni(2A, 23A, 23B), noting they had no
+conceptual explanation for the fixed point. This paper determines the
+Galois action on the full seven-point fiber.
 
-    python3 reproduce_p100.py   # rerun until it prints DONE (phased)
+- **Exact.** Complex conjugation acts as (1 2)(5 7), fixing labels
+  3, 4, 6 — proved by finite anchored certificates, three independent
+  implementations, and a Magma referee run.
+- **Exact.** The finite-level Grothendieck–Teichmüller group
+  GT_1(M23) induces the full S7 on the seven classes: the symmetry
+  breaking is not forced at this level.
+- **High-precision numerical determination**, subject to the stated
+  integer-relation recognitions: the G_Q-partition is 1 + 6 with
+  maximal image — rho(G_Q) = Stab_S7(6) ≅ S6, and rho(G_K) = S6 by an
+  exact argument conditional on the recognition. Two independently
+  descended coordinates yield the same sextic field, by an exact
+  symbolic certificate (paper Appendix; `receipts/iso-beta-receipt.json`).
+- **Conditional on the same recognition, exact:** the 23-adic
+  factorization of the displayed sextic gives the local decomposition
+  Q_23 × F_2 × F_4 — tame inertia of cycle type (1)(2)(4), with label
+  6 the unique inertia-fixed point at 23 (Magma-refereed).
 
-produces `partition-p100-receipt.json`: marked Petri invariants for all
-seven labels, trace/norm descent with label-6 exact anchors, the two
-exact sextics with recognition margins, S6 Galois groups, the
-199-prime Frobenius inventory with the split-prime parity argument,
-the 23-adic factorization certificate, and an exact (symbolically
-verified) field isomorphism between the two independent sextics.
-Requires: python3, mpmath, sympy, python-flint.
+## Reproduce (one command)
 
-`paper/gen_results_tex.py` regenerates every table in the PDF from the
-receipts. The Magma referee scripts in `magma/` are single-paste files
-for the public Magma calculator; `receipts/*ledger*.txt` record their
-verbatim outputs.
+    git clone https://github.com/azide0x37/m23-seven-points
+    cd m23-seven-points/pipeline
+    python3 reproduce_p100.py      # phased; rerun until it prints DONE
 
-The solver outputs themselves were produced by the job scripts in
-`pipeline/job*.py` (emission + the standalone Arnoldi solver
-`powser_arnoldi.c` of the Belyi package of Musty et al., MIT license).
+Requirements: `python3` with `mpmath`, `sympy`, `python-flint`
+(`pip install mpmath sympy python-flint`).
 
-`lean/` is the in-progress Lean 4 formalization of the finite
-combinatorial core; it is not claimed as part of the paper's
-verification.
+The pipeline starts from the seven stored 100-digit solver outputs
+(`data/label{1..7}-out-p100.m`, found automatically) and reproduces
+every computational assertion in the paper: marked Petri invariants
+for all seven labels, trace/norm descent with exact label-6 anchors,
+both exact sextics with recognition margins, the S6 Galois groups,
+the 199-prime Frobenius inventory, the 23-adic factorization
+certificate, and the exact field-identity certificate. Final receipt:
+`partition-p100-receipt.json`.
+
+`paper/gen_results_tex.py` regenerates every table in the PDF from
+the receipts.
+
+## Repository layout
+
+| Path | Contents |
+| --- | --- |
+| `paper/` | LaTeX source, compiled PDF, table generator |
+| `pipeline/` | reproduction pipeline and its libraries |
+| `data/` | the seven 100-digit solver outputs (~12 MB each) |
+| `receipts/` | machine-checkable JSON receipts and referee ledgers |
+| `magma/` | exact Magma referee scripts (single-paste, free calculator) |
+| `lean/` | in-progress Lean 4 formalization (see below) |
+
+## Verification layers
+
+Every computational claim in the paper names a receipt. The exact
+combinatorial layer (census, conjugation certificates, generation) is
+verified by three independent implementations, including the Magma
+referee scripts in `magma/` whose verbatim outputs are recorded in
+`receipts/*ledger*.txt`. The 100-digit solver outputs were produced
+by the job scripts in `pipeline/job*.py` with the standalone Arnoldi
+solver of the Belyi package (Musty–Schiavone–Sijsling–Voight, MIT;
+see `THIRD_PARTY_NOTICES.md`).
+
+`lean/` is an in-progress Lean 4 development that encodes and checks
+the small finite certificates; the full census build and the glue
+lemmas are incomplete, and no end-to-end formal verification is
+claimed.
+
+## Licensing
+
+- Code, data, and receipts in this repository: MIT
+  (`LICENSE`, with upstream notices in `THIRD_PARTY_NOTICES.md`).
+- The paper (`paper/`) is distributed on arXiv under arXiv's
+  non-exclusive license; the copy here is provided for convenience.
