@@ -25,5 +25,5 @@
       "resource_type": "publication-preprint"
     }
   ],
-  "notes": "After the paper is posted, add {relation: isSupplementTo, identifier: arXiv:<paper id>} and re-deposit."
+  "notes": "This release is the version of record for the paper and its computational artifacts; related identifiers may be extended upon later venue publication."
 }

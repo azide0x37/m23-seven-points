@@ -4,9 +4,8 @@
 [paper/main.tex](paper/main.tex)
 
 Computational artifacts for *The Galois action on the seven M23
-Hurwitz points* (Alexander West Templeton, 2026). arXiv submission in
-preparation; this repository is the artifact of record and will be
-archived with a DOI at publication.
+Hurwitz points* (Alexander West Templeton, 2026). This repository is
+the artifact of record; releases are archived with a DOI.
 
 ## What the paper establishes
 
@@ -102,5 +101,5 @@ of the method.
 
 - Code, data, and receipts in this repository: MIT
   (`LICENSE`, with upstream notices in `THIRD_PARTY_NOTICES.md`).
-- The paper (`paper/`) is distributed on arXiv under arXiv's
-  non-exclusive license; the copy here is provided for convenience.
+- The paper (`paper/`) is copyright the author; the copy here is the
+  version of record for this release.
