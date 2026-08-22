@@ -1,0 +1,1 @@
+{"prec": 100, "prec_bits": 373, "N": 12187, "Q": 12207, "NN": 12188, "dim": 4, "epsdigs": 92, "cmaxiter": 350, "rho": 0.9812834897968066, "maxwp": 0.9812725323233279, "n_lines": 85375, "n_lines_expected": 85375, "LINES_OK": true, "MAXWP_LE_RHO": true, "raw_bytes": 12877423, "seconds": 323.1, "PASS": true}

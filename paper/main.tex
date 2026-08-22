@@ -1,0 +1,1162 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,amscd}
+\usepackage{mathrsfs}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+\usepackage{xurl}   % allow URL line breaks anywhere (TL >= 2018)
+\emergencystretch=1.5em   % release stubborn overfull boxes
+
+% ------------------------------------------------------------------ macros
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\GQ}{G_{\QQ}}
+\newcommand{\GK}{G_{K}}
+\newcommand{\Ni}{\operatorname{Ni}}
+\newcommand{\Mtw}{M_{23}}
+\newcommand{\sqm}{\sqrt{-23}}
+\newcommand{\kap}{\kappa}
+\newcommand{\Sym}{\operatorname{Sym}}
+\input{results}   % machine-generated numerical results (gen_results_tex.py)
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{numresult}[theorem]{Numerical Result}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{convention}[theorem]{Convention}
+
+\title[The Galois action on the seven $\Mtw$ Hurwitz points]{The
+  Galois action on the seven $M_{23}$ Hurwitz points}
+\author{Alexander West Templeton}
+\address{Independent researcher}
+\email{alex@templeton.cloud}
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+Huang, Jackson, Lee, Poonen, Pries, and Zhang recently realized
+$\Mtw$ as a Galois group over $\QQ$ by finding a $\GQ$-fixed point
+among the seven inner Nielsen classes of type $(2A,23A,23B)$, and
+noted that they had no conceptual explanation for this fixed point.
+We determine the Galois action on the full seven-point Hurwitz
+fiber.
+%
+First, we compute the action of complex conjugation exactly. With
+branch points $(0,\sqm,-\sqm)$, it acts on the seven classes as
+$(1\,2)(5\,7)$, fixing $3$, $4$, $6$. We then compute the associated
+genus-$4$ quotient curves by numerical uniformization and construct
+marked Petri invariants which we prove algebraic and
+$\GK$-equivariant for $K=\QQ(\sqm)$. Trace and norm along the
+marking descend these to algebraic $\GQ$-equivariant invariants of
+the unmarked fiber.
+%
+Integer-relation recognition, \ConfirmationPhrase, gives a
+high-precision numerical determination of the arithmetic
+decomposition
+\[
+  \{1,\dots,7\}=\{6\}\sqcup\{1,2,3,4,5,7\}.
+\]
+The two coordinates generate the same sextic residue field $F$; it
+has signature $(2,2)$, and its Galois closure has group $S_6$. Thus,
+subject only to the stated integer-relation recognitions,
+\[
+  \rho(\GQ)=\operatorname{Stab}_{S_7}(6)\cong S_6,
+  \qquad
+  \rho(\GK)=S_6.
+\]
+Arithmetic fixes exactly one point and acts maximally on the
+remaining six.
+%
+This symmetry breaking is not forced by the finite-level
+Grothendieck--Teichm\"uller constraints: using Guillot's description
+of $\mathcal{GT}_1(G)$ for finite simple groups, we prove that
+$\mathcal{GT}_1(\Mtw)$ induces the full $S_7$ on these seven Nielsen
+classes. Finally, under the same recognition hypothesis, at the
+prime $23$ the seven-point Hurwitz algebra decomposes locally as
+$\QQ_{23}\times F_2\times F_4$, where $F_2$ and $F_4$ are totally
+ramified tame extensions of degrees $2$ and $4$. Hence inertia has
+cycle type $(1)(2)(4)$, making label $6$ the unique inertia-fixed
+point at $23$ and giving a concrete local target for a conceptual
+explanation of the exceptional rational point.
+\end{abstract}
+
+\maketitle
+
+% ================================================================ INTRO
+\section{Introduction}
+
+The inverse Galois problem for the sporadic simple group $\Mtw$ resisted
+solution longer than for any other sporadic group. It was settled in
+2026 by Huang, Jackson, Lee, Poonen, Pries, and Zhang \cite{HJLPPZ},
+who studied the Hurwitz space of Galois covers of $\PP^1$ with
+monodromy group $\Mtw$, ramification type $(2A,23A,23B)$, and branch
+points $(0,\sqm,-\sqm)$. The associated inner Nielsen class
+\[
+  \Ni(2A,23A,23B)^{\mathrm{in}}
+  \;=\;
+  \bigl\{(x,y,z)\in 2A\times 23A\times 23B :
+     xyz=1,\ \langle x,y\rangle=\Mtw\bigr\}\big/\Mtw
+\]
+consists of exactly seven simultaneous-conjugacy classes; the Hurwitz
+space is accordingly a degree-$7$ cover of the configuration base, its
+fiber above $(0,\sqm,-\sqm)$ consisting of seven points permuted by
+$\GQ=\operatorname{Gal}(\overline{\QQ}/\QQ)$. The authors of
+\cite{HJLPPZ} located a $\GQ$-fixed point among the seven --- yielding a
+regular realization of $\Mtw$ over $\QQ$ --- and remarked that they
+``do not have a conceptual explanation'' for its existence.
+
+This note contributes two computations toward that explanation.
+
+\subsection*{Complex conjugation}
+First, we determine unconditionally how the subgroup generated by
+complex conjugation acts on the seven points
+(Theorem~\ref{thm:kappa}): in our labeling
+(Convention~\ref{conv:group}) it is the involution
+\[
+  \kap \;=\; (1\,2)(5\,7),
+\]
+fixing the three points $3,4,6$. In particular exactly three of the
+seven points are fixed by the chosen complex conjugation (so their
+residue fields admit the corresponding real embedding), and the
+$\GQ$-orbit partition of the seven refines to one of the eight shapes
+listed in Corollary~\ref{cor:menu}. The proof combines the branch cycle argument
+of Fried \cite{Fried77, DebesDouai} with a finite certificate: after
+anchoring the $2A$-coordinate, complex conjugation acts on the
+anchored slice by $y \mapsto x_0y$, and its effect on the seven
+classes is witnessed by seven explicit conjugating elements
+(\S\ref{sec:kappa}).
+
+\subsection*{The orbit partition}
+Second, we compute the seven covers themselves. Each quotient curve
+$X_i$ (the quotient of the Galois cover by a point stabilizer) is a
+curve of genus $4$; we compute its canonical differentials and Petri
+quadric by the power-series method of
+Klug--Musty--Schiavone--Voight \cite{KMSV} at $100$ decimal
+digits, using the standalone Arnoldi solver of \cite{BelyiRepo}
+(\S\ref{sec:powser}). From the Petri quadric of the canonical curve we
+extract \emph{marked invariants}: ratios of quadric coefficients that
+are invariant both under the projective scale and under the one
+remaining analytic normalization freedom, hence are algebraic numbers
+attached to the marked cover, compatible with the Galois action
+(\S\ref{sec:invariants}). For the $\GQ$-fixed point (label $6$) all
+six invariants are recognized as elements of $K=\QQ(\sqm)$ with small
+height --- for example
+\[
+  J_1 \;=\; \frac{-4152+693\sqm}{10237},
+\]
+with $\sim 85$ digits of confirmation margin --- validating the method
+against known ground truth. Applying the same procedure to all seven
+points and factoring the resulting degree-$7$ polynomials over $K$
+yields the $\GK$-orbit partition, which combined with $\kap$
+determines the $\GQ$-partition: it is $1+6$, and the permutation
+image is the maximal group compatible with one fixed point
+(Numerical Result~\ref{thm:partition}).
+
+\subsection*{Verification}
+Every computational claim in this note is backed by a machine-readable
+receipt (\S\ref{sec:artifacts}); the census and the $\kap$-action are
+verified by three independent implementations, including a Magma
+referee run; a Lean~4 formalization of the finite combinatorial core
+(kernel-checked \texttt{decide} certificates with a single
+quarantined \texttt{native\_decide} enumeration) is in progress and
+is not claimed as part of the verification here. The analytic input --- that complex
+conjugation acts through the branch cycle argument --- enters only
+through the published results cited above.
+
+\subsection*{Relation to \cite{HJLPPZ}}
+The authors of \cite{HJLPPZ} have announced a revision containing more
+details, including the action of complex conjugation, which they
+computed independently. The present computations were performed
+without access to that revision; the labeled representatives in
+Appendix~\ref{app:reps} make the two computations directly comparable.
+
+% ============================================================== CENSUS
+\section{The seven Nielsen classes}\label{sec:census}
+
+\begin{convention}\label{conv:group}
+$\Mtw$ denotes the copy $\langle g_1,g_2\rangle\subset S_{23}$
+generated by the two permutations of \cite{HJLPPZ},
+reproduced in Appendix~\ref{app:reps}; $g_1\in 2A$, $g_2\in 23A$,
+$g_3:=(g_1g_2)^{-1}\in 23B$. Products act on the right of the first
+factor: $(pq)(i)=p(q(i))$. We write $C=C_{\Mtw}(g_1)$, of order
+$2688$. We use our \emph{own} labels $1,\dots,7$ for the seven
+Nielsen classes, fixed by the anchored representatives of
+Appendix~\ref{app:reps} and chosen so that label $6$ is the class
+of the generating triple printed in \cite{HJLPPZ} (which does not
+publish a numbering); the appendix permits direct comparison with
+any numbering in their announced revision.
+\end{convention}
+
+\begin{proposition}[census]\label{prop:census}
+The set
+\[
+  T=\bigl\{(x,y)\in 2A\times 23A :\ (xy)^{-1}\in 23B,\
+  \langle x,y\rangle = \Mtw\bigr\}
+\]
+carries exactly seven orbits under simultaneous conjugation, with
+representatives $(g_1,y_1)$, \dots, $(g_1,y_7)$ listed in
+Appendix~\ref{app:reps} (numbered as in
+Convention~\ref{conv:group}). Moreover:
+\begin{enumerate}
+\item every orbit meets the anchored slice $\{(g_1,y)\}$, and two
+  anchored pairs are conjugate iff they are $C$-conjugate;
+\item the set $Y=\{y : (g_1,y)\in T\}$ has exactly
+  $18816 = 7\cdot 2688$ elements, partitioned into seven
+  \emph{regular} $C$-orbits (equivalently, $Z(\Mtw)=1$ and each pair
+  has trivial simultaneous centralizer);
+\item the generation condition is automatic: every $y\in 23A$ with
+  $(g_1y)^{-1}\in 23B$ generates $\Mtw$ together with $g_1$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof (certificate)]
+(1) is the orbit--stabilizer transport for the conjugation action on
+the $2A$-coordinate. (2) and (3) are finite assertions verified by
+exhaustive enumeration: the classes $23A$, $23B$ (each of size
+$443\,520$) are materialized as conjugation orbits, $Y$ is filtered,
+and the seven $C$-orbits of the $y_i$ are checked to be disjoint, of
+size $2688$ each, and to cover $Y$; generation for the seven
+representatives is certified by verified stabilizer chains
+(order $10\,200\,960$ for each $\langle g_1,y_i\rangle$), and
+generation is constant on orbits. The enumeration has been performed
+by three independent implementations (\S\ref{sec:artifacts});
+the in-progress Lean formalization packages the same certificates.
+\end{proof}
+
+\begin{remark}
+The identity $|Y| = 7\cdot|C|$, i.e.\ the regularity of all seven
+orbits, is equivalent to the vanishing of the simultaneous centralizer
+of each generating pair, which holds since $Z(\Mtw)=1$. This is what
+makes the anchored certificate small: seven orbit representatives,
+two generators of $C$, and seven conjugators suffice.
+\end{remark}
+
+% =============================================================== KAPPA
+\section{Complex conjugation: the involution \texorpdfstring{$\kap$}{kappa}}
+\label{sec:kappa}
+
+Fix the branch points $(b_1,b_2,b_3)=(0,\sqm,-\sqm)$ and a real base
+point, and order the standard generators of
+$\pi_1(\PP^1\smallsetminus\{b_1,b_2,b_3\})$ so that the slots carry
+the classes $(2A,23A,23B)$ as in \cite{HJLPPZ}. Complex conjugation
+fixes $b_1$ and exchanges $b_2\leftrightarrow b_3$; the branch cycle
+argument \cite{Fried77,DebesDouai} computes its effect on Nielsen
+classes for a conjugation-symmetric bouquet:
+\[
+  \kap(x,y,z) \;=\; (x,\; z^{-1},\; y^{-1}).
+\]
+(For a triple with $xyz=1$ this is again a triple with product $1$ and
+classes $(2A,23A,23B)$, since inversion exchanges $23A$ and
+$23B$.\footnote{The generic form of the formula is
+$(x^{-1},z^{-1},y^{-1})$; here $x$ is an involution.})
+
+\begin{theorem}\label{thm:kappa}
+On the seven classes of Proposition~\ref{prop:census}, complex
+conjugation acts by the involution
+$\kap=(1\,2)(5\,7)$, fixing the labels $3$, $4$, $6$.
+\end{theorem}
+
+\begin{proof}[Proof (certificate)]
+On the anchored slice the map takes the pleasant form
+$y \mapsto g_1y$: indeed
+$\kap(g_1,y,z)=(g_1,z^{-1},y^{-1})$ with
+$z^{-1}=(g_1y)^{-1\,-1}=g_1y$. For each label $i$ an explicit
+$c_i\in C$ with
+\[
+  c_i^{-1}\,(g_1 y_i)\,c_i \;=\; y_{\sigma(i)},\qquad
+  \sigma=(1\,2)(5\,7),
+\]
+is exhibited in the artifact repository and re-verified by the Magma
+referee; by Proposition~\ref{prop:census}(1) this determines the
+action on classes. Involutivity of the induced $\sigma$ and the
+membership certificates $c_i\in C\cap\Mtw$ are part of the same
+receipt.
+\end{proof}
+
+\begin{remark}
+Label $6$ is the $\GQ$-fixed point of \cite{HJLPPZ}; that
+$\kap(6)=6$ is a consistency check the certificate passes, not an
+input.
+\end{remark}
+
+\begin{corollary}[partition menu]\label{cor:menu}
+Every $\GQ$-orbit is a union of $\kap$-blocks
+$\{1,2\}$, $\{5,7\}$, $\{3\}$, $\{4\}$, $\{6\}$.
+\begin{enumerate}
+\item From Theorem~\ref{thm:kappa} alone, the partition shape of the
+  seven is one of the twelve shapes
+  $2{+}2{+}1{+}1{+}1$, $2{+}2{+}2{+}1$, $3{+}2{+}2$,
+  $3{+}2{+}1{+}1$, $3{+}3{+}1$, $4{+}1{+}1{+}1$, $4{+}2{+}1$,
+  $4{+}3$, $5{+}1{+}1$, $5{+}2$, $6{+}1$, $7$.
+\item Since label $6$ is $\GQ$-fixed \cite{HJLPPZ}, the orbit $\{6\}$
+  splits off and the partition of the remaining six is one of the
+  eight shapes
+  \[
+    2{+}2{+}1{+}1,\quad 2{+}2{+}2,\quad 3{+}2{+}1,\quad 3{+}3,\quad
+    4{+}1{+}1,\quad 4{+}2,\quad 5{+}1,\quad 6 .
+  \]
+\end{enumerate}
+Numerical Result~\ref{thm:partition} selects the true shape.
+\end{corollary}
+
+% ============================================================== POWSER
+\section{Power series models of the seven quotient curves}
+\label{sec:powser}
+
+Let $\Delta=\Delta(23,2,23)$ be the hyperbolic triangle group with the
+order-$23$ vertex uniformizing the branch point $\sqm$ (slot $23A$),
+and for each label $i$ let $\Gamma_i\le\Delta$ be the index-$23$
+subgroup determined by the permutation triple of $(g_1,y_i)$. The
+quotient $X_i=\Gamma_i\backslash\mathcal{H}$ is the genus-$4$ quotient
+curve of the $i$-th cover; by Riemann--Hurwitz
+$g = 1+\tfrac{1}{2}(23-1-15-1)=4$, where $15$ is the number of cycles
+of the $2A$-permutation.
+
+We compute a basis of the weight-$2$ cusp forms
+$S_2(\Gamma_i)=H^0(X_i,\Omega^1)$ as power series in the disc
+uniformizer $w$ centered at the elliptic fixed point of the order-$23$
+vertex, following \cite{KMSV,VoightWillis}: with
+$\rho=\RhoVal\ldots$ (the radius of the fundamental domain),
+truncation order $N=\NVal$, and $Q=\QVal$ collocation points on
+$|w|=\rho$, the coefficient vector of each form is a fixed point of a
+structured evaluation--interpolation operator $A$, computed by the
+Arnoldi iteration implemented in the standalone solver of
+\cite{BelyiRepo} at working precision $100$ digits.
+
+Validation is layered:
+\begin{enumerate}
+\item the geometry stack (coset representatives, fundamental-domain
+  reduction, automorphy factors) passes a battery of exact receipts,
+  including the identity $\operatorname{Im}(\gamma z) =
+  \operatorname{Im}(z)/|cz+d|^2$ at every collocation point and the
+  radius bound $|w_{\mathrm{red}}|\le\rho$;
+\item at low precision the operator $A$, rebuilt from the emitted
+  input file alone, has numerical fixed space of dimension exactly
+  $4=\dim S_2(\Gamma_i)$, with singular-value separation
+  $10^{-15}$ vs.\ $10^{-1.1}$ --- an end-to-end structural check;
+\item the $100$-digit solve validates each returned vector $x$ by
+  the finite-operator residual $\|Ax-x\|/\|x\|$; for label $6$ all
+  four residuals are $\le 10^{-91}$, against an acceptance gate of
+  $10^{-88}$ (this validates the numerical operator, not the
+  truncation-to-algebraic step, which is addressed in
+  \S\ref{sec:invariants});
+\item the $100$-digit coefficients agree with the independently
+  computed low-precision fixed space to $\sim 10^{-13}$, the roundoff
+  floor of the latter.
+\end{enumerate}
+For the remaining labels the validated residuals (item 3) are
+$1.2\times10^{-91}$ (label $1$), $4.6\times10^{-92}$ ($2$),
+$3.3\times10^{-92}$ ($3$), $8.9\times10^{-92}$ ($4$),
+$1.7\times10^{-92}$ ($5$), and $2.3\times10^{-92}$ ($7$), all
+against the same $10^{-88}$ gate.
+
+% =========================================================== INVARIANTS
+\section{Marked Petri invariants}\label{sec:invariants}
+
+Write $f_0,f_1,f_2,f_3$ for the basis of $S_2(\Gamma_i)$ echelonized
+with respect to the $w$-expansion,
+$f_j = w^j + O(w^4)$. Since $X_i$ is not hyperelliptic (this is
+checked, not assumed: see below), the canonical embedding
+$X_i\hookrightarrow\PP^3$ realizes $X_i$ as the complete intersection
+of a unique quadric $Q_i$ and a cubic modulo $Q_i$ (Petri). We compute
+$Q_i=\sum_{j\le k} q_{jk}\,x_jx_k$ from the one-dimensional kernel of
+the evaluation matrix of the ten products $f_jf_k$ --- the kernel
+dimension being exactly $1$ is the non-hyperellipticity gate.
+
+\begin{lemma}[forced filtration structure]\label{lem:filtration}
+For every label, $q_{00}=q_{01}=0$, $q_{02}=-q_{11}$, and
+$q_{03}=-q_{12}$ \textup{(}in the echelon basis, after scaling\textup{)}.
+\end{lemma}
+
+\begin{proof}
+The relation $\sum q_{jk} f_jf_k=0$ has $w$-expansion beginning
+\[
+  q_{00} + q_{01}w + (q_{02}+q_{11})w^2 + (q_{03}+q_{12})w^3 +
+  O(w^4),
+\]
+because $f_jf_k = w^{j+k}+O(w^4)$ and no products contribute below
+order $4$ otherwise. Each displayed coefficient must vanish.
+\end{proof}
+
+Numerically the four vanishing combinations are observed at
+$10^{-92}$, an additional receipt. The moduli-carrying data is thus
+the vector $(q_{11},q_{12},q_{13},q_{22},q_{23},q_{33})$ up to the
+following normalization freedom.
+
+\begin{lemma}[weights]\label{lem:weights}
+The echelon basis is unique given the local parameter $w$; the
+residual freedom is $w\mapsto\lambda w$ \textup{(}$\lambda\in\CC^*$%
+\textup{)}, under which the re-echelonized basis satisfies
+$f_j\rightsquigarrow \lambda^{-j}f_j(\lambda\,\cdot)$ and the quadric
+coefficients transform by
+\[
+  q_{jk} \;\longmapsto\; \mu\,\lambda^{j+k}\,q_{jk}
+  \qquad(\mu\in\CC^* \text{ a common scale}).
+\]
+Consequently any ratio $\prod q_{j_tk_t}\big/\prod q_{l_tm_t}$ with
+equally many factors up and down and matching total weight
+$\sum(j_t+k_t)=\sum(l_t+m_t)$ is independent of all normalization
+choices. \textup{(}The sign of the weight exponent depends on
+whether one transforms functions or differentials; only weight
+\emph{differences} matter for such ratios --- see
+Convention~\ref{conv:weights} for the form-level convention used in
+the algebraic argument.\textup{)}
+\end{lemma}
+
+We call such ratios \emph{marked invariants}. The next proposition
+--- the hinge of the method --- shows they are algebraic and
+$\GK$-equivariant. Its proof is purely algebraic: no numerical
+statement enters. It rests on three observations: adapted parameters
+form a $\mu_{23}$-torsor; the analytic parameter agrees with any
+adapted one to order $>12$; and on a genus-$4$ curve the Petri
+quadric is determined by $12$-jets, since $\deg 2K_X=12$. The
+structural reason the argument closes is the inequality
+\[
+  \boxed{\,23 \;>\; \deg 2K_X \;=\; 4g-4 \;=\; 12\,.}
+\]
+
+\begin{definition}[adapted parameter]\label{def:adapted}
+Let $(X,\phi)$ be a cover in the family over a finite extension
+$L/K$ contained in $\overline{\QQ}$, and $P$ the unique (totally
+ramified) point above $\sqm$. A formal parameter $t$ at $P$ is \emph{adapted} if
+$\phi = \sqm + t^{23}$ exactly in
+$\widehat{\mathcal{O}}_{X_{\overline L},P}$. Write
+$\mathscr{T}_P=\{t \text{ adapted}\}$.
+\end{definition}
+
+\begin{lemma}[torsor]\label{lem:adapted}
+The functor $\mathscr{T}_P$ is a $\mu_{23}$-torsor over $L$ --- any
+two adapted parameters differ by $t\mapsto\mu t$, $\mu^{23}=1$ ---
+and $\mathscr{T}_P(\overline{L})\neq\varnothing$. Equivalently:
+adapted parameters exist after a finite extension of $L$, and need
+not exist over $L$ itself. The torsor is functorial under
+$\operatorname{Gal}(\overline{L}/L)$ for $L\supseteq K$: if $t$ is
+adapted for $(X,\phi,P)$ then $t^{\sigma}$ is adapted for
+$(X^{\sigma},\phi^{\sigma},P^{\sigma})$ \textup{(}using
+$\sigma(\sqm)=\sqm$\textup{)}. Moreover, if $w$ is the analytic disc
+parameter of \S\ref{sec:powser} \textup{(}canonical up to
+$w\mapsto\lambda w$\textup{)}, then every adapted $t$ satisfies
+\[
+  t \;=\; \lambda\, w\,\bigl(1 + u_1w^{23} + u_2w^{46}+\cdots\bigr),
+  \qquad
+  dt \;=\; \lambda\,\bigl(1+O(w^{23})\bigr)\,dw
+\]
+for some $\lambda\in\CC^*$: the comparison unit is a power series in
+$w^{23}$.
+\end{lemma}
+
+\begin{proof}
+Writing $\phi-\sqm = c\,\tilde t^{\,23}\bigl(1+h(\tilde t)\bigr)$ in
+any parameter $\tilde t$ over $L$, an adapted parameter is
+$t=\tilde t\,\bigl(c(1+h)\bigr)^{1/23}$; the $23$rd root of the unit
+$1+h$ exists in $L[[\tilde t\,]]$ (characteristic $0$), while the
+root $c^{1/23}$ in general requires a finite extension --- whence
+existence over $\overline L$ only, and the $\mu_{23}$-torsor
+structure. Functoriality is immediate from
+$\sigma(\phi-\sqm)=\phi^{\sigma}-\sqm$. For the analytic comparison:
+$\phi-\sqm$ is invariant under the order-$23$ rotation
+$w\mapsto\zeta_{23}w$ about the disc center, hence is a power series
+in $w^{23}$; extracting the $23$rd root as above gives the displayed
+form, and $dt$ follows by differentiation.
+\end{proof}
+
+\begin{convention}[weights on coefficients]\label{conv:weights}
+Fix a strictly increasing vanishing sequence
+$0\le a_0<a_1<a_2<a_3$ (the orders of vanishing at $P$ realized on
+$H^0(X,\Omega^1)$; generically, and for all our labels by a per-label
+numerical gate, $a_j=j$). The echelon basis w.r.t.\ a parameter $t$
+is $\omega_j = \bigl(t^{a_j}+\sum_{n>a_j}a_{j,n}t^{\,n}\bigr)dt$
+with $a_{j,a_k}=0$ for $k\neq j$. Under $t\mapsto\mu t$, after
+renormalizing leading terms,
+\[
+  a_{j,n}\;\longmapsto\;\mu^{\,a_j-n}\,a_{j,n},
+\]
+and the Petri coefficients transform by
+$q_{jk}\mapsto \tilde\mu\,\mu^{-(a_j+a_k)}q_{jk}$ for a common
+scalar $\tilde\mu$; only weight \emph{differences} matter below, so
+the sign convention in the exponent is immaterial for weight-matched
+ratios. A ratio $\prod q_{j_tk_t}/\prod q_{l_tm_t}$ is
+\emph{weight-$0$} if the factor counts agree and
+$\sum(a_{j_t}+a_{k_t})=\sum(a_{l_t}+a_{m_t})$.
+\end{convention}
+
+\begin{lemma}[Petri from $12$-jets]\label{lem:jets}
+Let $X$ be a non-hyperelliptic curve of genus $4$ and $P\in X$ any
+point. The jet map
+$j^{12}_P\colon H^0(X,2K_X)\to (2K_X)\otimes
+\mathcal{O}_{X,P}/\mathfrak{m}_P^{13}$
+is injective, and consequently the Petri line
+$\ker\bigl(m\colon\Sym^2H^0(K_X)\to H^0(2K_X)\bigr)$ equals
+$\ker\bigl(j^{12}_P\circ m\bigr)$: the quadric is determined exactly
+by the coefficients of the products $\omega_j\omega_k$ through order
+$12$ at $P$.
+\end{lemma}
+
+\begin{proof}
+$\deg 2K_X = 4g-4 = 12$, so a nonzero global section of $2K_X$
+vanishes at $P$ to order at most $12$; a section with vanishing
+$12$-jet is therefore zero. The second statement is immediate.
+\end{proof}
+
+\begin{proposition}[equivariance]\label{prop:equivariance}
+Let $J$ be any weight-$0$ ratio in the sense of
+Convention~\ref{conv:weights}, defined on the locus where its
+denominator factors are nonzero. Then:
+\begin{enumerate}
+\item $J(X,\phi)\in\overline{\QQ}$ is an invariant of the
+  isomorphism class of the marked cover $(X,\phi,P)$, and for every
+  $\sigma\in\GK$ the square
+  \[
+  \begin{array}{ccc}
+    (X,\phi,P) & \xmapsto{\ \ J\ \ } & \overline{\QQ}\\[2pt]
+    \big\downarrow{\scriptstyle\sigma} & & \big\downarrow{\scriptstyle\sigma}\\[2pt]
+    (X^\sigma,\phi^\sigma,P^\sigma) & \xmapsto{\ \ J\ \ } & \overline{\QQ}
+  \end{array}
+  \]
+  commutes;
+\item the analytically computed value of \S\ref{sec:powser} equals
+  $J(X,\phi)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) Pull back to the torsor: for an adapted $t\in\mathscr{T}_P$
+(over $\overline{L}$, Lemma~\ref{lem:adapted}) the flag of vanishing
+orders, the echelon basis, the products
+$\omega_j\omega_k\in H^0(2K_X)$, their $12$-jets at $P$ in the
+parameter $t$, and the Petri line recovered from those jets
+(Lemma~\ref{lem:jets}) are all algebraic constructions, compatible
+with any field embedding; hence all $a_{j,n}$ and $q_{jk}$ lie in
+$\overline{\QQ}$ and depend on the choice of $t$ only through the
+$\mu_{23}$-action of Convention~\ref{conv:weights}. A weight-$0$
+ratio is $\mu_{23}$-invariant, so $J$ descends from the torsor to
+the marked cover itself. Functoriality of $\mathscr{T}_P$ under
+$\GK$ (Lemma~\ref{lem:adapted}) then gives commutativity: $\sigma$
+carries the entire diagram
+\[
+  \begin{CD}
+    \Sym^2 H^0(K_X) @>{m}>> H^0(2K_X) @>{j^{12}_P}>>
+      J^{12}_P(2K_X)\\
+    @V{\sigma}VV @V{\sigma}VV @V{\sigma}VV\\
+    \Sym^2 H^0(K_{X^\sigma}) @>{m^\sigma}>> H^0(2K_{X^\sigma})
+      @>{j^{12}_{P^\sigma}}>> J^{12}_{P^\sigma}(2K_{X^\sigma})
+  \end{CD}
+\]
+to the corresponding diagram for $(X^{\sigma},\phi^{\sigma})$, with
+the right-hand horizontal maps injective, and the Petri line
+functorially recovered on each row.
+
+(2) By Lemma~\ref{lem:adapted}, $t=\lambda w(1+O(w^{23}))$ and
+$dt=\lambda(1+O(w^{23}))dw$, so the transition between the echelon
+computations in $w$ and in $t$ differs from the diagonal scaling
+$\operatorname{diag}(\lambda^{a_j})$ only at jet orders $\ge 23$.
+Since $23>12$, the two computations have \emph{identical} $12$-jets
+of the products $\omega_j\omega_k$ up to that diagonal scaling and a
+common scalar; by Lemma~\ref{lem:jets} the Petri lines agree up to
+the same scaling, and weight-$0$ ratios kill it. No truncation
+hypothesis is needed: the entire $2K$-linear system is blind to the
+nonlinear discrepancy between $w$ and $t$, precisely because
+$23>\deg 2K_X$.
+\end{proof}
+
+\begin{remark}[numerical cross-check]
+Although the proof above is exact, the pipeline still runs the
+corresponding receipt: for label $6$ the quadric recomputed from
+coefficient orders $\le 22$ alone agrees with the full computation
+to $3\times10^{-92}$ and the invariants to $7\times10^{-91}$,
+consistent with (and now implied by) Lemma~\ref{lem:jets}.
+\end{remark}
+
+\begin{remark}[the field is $K$, not $\QQ$]
+Even for the $\GQ$-fixed label $6$ the marked invariants need not be
+rational: the marked triple $(X,\phi,P)$ is a $K$-object, since $P$
+lies over $\sqm$. The computation below finds them in $K$ exactly.
+Complex conjugation ($\sigma\notin\GK$) sends the $\sqm$-marked data
+of label $i$ to the $-\sqm$-marked data of label $\kap(i)$; the
+resulting compatibility between labels $\{1,2\}$ and $\{5,7\}$ is a
+numerical gate in \S\ref{sec:partition}, not an assumption.
+\end{remark}
+
+We use the six weight-$0$ ratios
+\[
+  J_1=\frac{q_{13}}{q_{22}},\quad
+  J_2=\frac{q_{11}q_{13}}{q_{12}^2},\quad
+  J_3=\frac{q_{11}q_{33}}{q_{13}q_{22}},\quad
+  J_4=\frac{q_{12}q_{23}}{q_{13}q_{22}},\quad
+  J_5=\frac{q_{11}q_{23}}{q_{12}q_{13}},\quad
+  J_6=\frac{q_{22}^2}{q_{11}q_{33}}.
+\]
+A numerical gate checks, for every label, that each denominator
+factor appearing in $J_1,\dots,J_6$ is bounded away from zero
+(receipts), so the six ratios are defined at all seven points.
+
+\subsection{Ground-truth gate: label 6}
+For label $6$, PSLQ at $100$ working digits recognizes all six
+invariants in $K$ with small height:
+\begin{center}
+\LabelSixTable
+\end{center}
+Each recognition leaves $\sim 85$ digits of confirmation margin. As a
+negative control, a ratio with mismatched weight (hence still
+containing the transcendental $\lambda$) fails recognition, exactly
+as Lemma~\ref{lem:weights} predicts.
+
+% ============================================================ PARTITION
+\section{The Galois orbit partition}\label{sec:partition}
+
+For each invariant $J$ the multiset $\{J(X_1),\dots,J(X_7)\}$ (all
+marked at the $\sqm$-side) is $\GK$-stable, so
+\[
+  \Phi_J(T) \;=\; \prod_{i=1}^{7}\bigl(T-J(X_i)\bigr)\;\in\;K[T],
+\]
+and the degrees of the irreducible factors of $\Phi_J$ over $K$
+compute the $\GK$-orbit partition of the seven marked covers
+(provided $J$ separates the seven, which is checked numerically).
+The $\GQ$-partition then follows by gluing with
+Theorem~\ref{thm:kappa}: $\GQ$-orbits are the $\kap$-stable unions of
+$\GK$-orbits generated by the pairs $\{1,2\}$, $\{5,7\}$.
+
+Gates: (i) agreement of the partition across the independent
+invariants $J_1,\dots,J_6$; (ii) the $\kap$-consistency check that
+the directly-computed invariants of labels $2$ and $7$ are the
+appropriate Galois conjugates of those of $1$ and $5$; (iii) a
+precision ladder (recognition at $60$ digits, confirmation at $100$;
+escalation to $200$ digits if coefficient heights require it).
+
+\subsection*{From partition to permutation group}
+The factor degrees of $\Phi_J$ give only the orbit \emph{sizes}. From
+the recognized (and consistency-checked) factors we extract more: the
+Galois group of each irreducible factor over $K$, discriminants, and
+Frobenius cycle types at a sample of good primes of $K$ determine the
+image
+\[
+  A_K \;=\; \text{(the permutation group induced by }\GK\text{ on the
+  seven)} \;\le\; S_7
+\]
+up to conjugacy, and adjoining the unconditionally known
+complex-conjugation permutation gives
+$A_\QQ=\langle A_K,\kap\rangle=\rho(G_\QQ)$ as an \emph{explicit
+subgroup of $S_7$}. It is this group, not merely the partition
+shape, that is to be placed alongside the ambient bound of
+\S\ref{sec:gt}.
+
+\subsection*{Epistemic status and the exactification path}
+We state the outcome as a \emph{high-precision numerical
+determination}: by Proposition~\ref{prop:equivariance} the quantities
+$J(X_i)$ are honest algebraic numbers and the set-level Galois
+structure is as described, but their \emph{identification} with
+specific elements of $\overline{\QQ}$ rests on integer-relation
+detection (PSLQ margin plus cross-implementation agreement). This is
+compelling evidence, not yet proof. Two upgrades convert it to a
+theorem. \emph{Cheap consistency}: the recognized values must satisfy
+exact algebraic identities --- the recognized $\Phi_J$ must have
+$K$-coefficients matching the recognized roots symmetrically, and
+distinct invariants satisfy resultant compatibilities --- all
+checkable in exact arithmetic; failures would falsify recognition.
+\emph{Definitive}: reconstruct from the recognized invariants exact
+models $(Q_i, C_i)$ over the recognized fields by lattice reduction,
+and verify \emph{algebraically} that each defines a genus-$4$ curve
+whose associated cover has monodromy $\Mtw$ of type
+$(2A,23A,23B)$ --- at which point the partition statement inherits a
+full proof. The first upgrade is carried out here: the recognized
+sextic coefficients are the exact symmetric functions of the six
+recognized roots by construction, and the two independently
+recognized sextics satisfy an exact compatibility, verified purely
+symbolically --- $f_2$ acquires a linear factor over
+$\QQ[x]/(f_1)$, so the two independent descended coordinates
+generate the \emph{same} sextic field $F$
+(receipt \texttt{partition-p100-receipt.json}). The second upgrade
+is future work in the spirit of \cite{HJLPPZ}'s own exactness step.
+
+\subsection*{Descent to $\QQ$: trace and norm along the marking}
+Let $A$ denote the degree-$7$ \'etale $\QQ$-algebra of the unmarked
+Hurwitz fiber; the $\sqm$-marked fiber has coordinate algebra
+$A_K=A\otimes_\QQ K$ with $K/\QQ$-involution $\tau$, and
+Proposition~\ref{prop:equivariance} realizes each marked invariant as
+an element $J\in A_K$. The elements
+\[
+  S=J+\tau J,\qquad N=J\cdot\tau J
+\]
+are the quadratic trace and norm and lie in $A$: they are
+$\GQ$-equivariant functions of the \emph{unmarked} points. Pointwise,
+by Theorem~\ref{thm:kappa}, $\tau$ acts by
+$(\tau J)(i)=\overline{J(\kap(i))}$, so $S$ and $N$ are computable
+from the $\sqm$-marked data alone. (The assembled polynomials
+$\prod_i(T-S(i))$ have real coefficients \emph{by construction} ---
+receipt \texttt{DESCENT\_ASSEMBLY\_REALITY}, an implementation gate,
+not an equivariance test.)
+
+\subsection*{The result}
+Among small integer combinations of the twelve descended coordinates
+$S_r$, $N_r$ ($r=1,\dots,6$), the coordinate $U_1=S_1+N_1$ (and,
+independently, $U_2=S_2+N_2$) separates the seven points and
+produces exact recognitions with $\sim70$ digits of margin at working
+precision $100$:
+
+\begin{numresult}[high-precision determination of the orbit partition]
+\label{thm:partition}
+Subject to the integer-relation recognitions below (margins
+$10^{-88}$--$10^{-90}$, all gates passed), the $\GQ$-set of the seven
+Hurwitz points is
+\[
+  \{6\}\;\sqcup\;\{1,2,3,4,5,7\},
+\]
+i.e.\ the partition is $1+6$: label $6$ is the unique rational point
+and the remaining six form a single $\GQ$-orbit. Moreover the
+associated permutation images are
+\[
+  \rho(\GQ)\;=\;\operatorname{Stab}_{S_7}(6)\;\cong\;S_6,
+  \qquad
+  \rho(\GK)\;=\;S_6 \ \text{as well.}
+\]
+Equivalently, $H\simeq\operatorname{Spec}\QQ\sqcup\operatorname{Spec}F$
+with $F=\QQ[T]/(f)$ sextic, $\operatorname{Gal}(f^{\mathrm{spl}}/\QQ)
+= S_6$, and signature $\operatorname{sig}(F)=(2,2)$ \textup{(}forced
+by Theorem~\ref{thm:kappa}\textup{)}.
+\end{numresult}
+
+For the remainder of \S\S\ref{sec:partition}--\ref{sec:gt},
+assertions identifying $F$ with the residue field of the six-point
+Hurwitz orbit are conditional on the integer-relation recognitions
+of Numerical Result~\ref{thm:partition}; statements about the
+displayed polynomials $f$, $f_2$ themselves are exact.
+
+\noindent Evidence and gates:
+\begin{enumerate}
+\item $U_1(6)=-\tfrac{5541}{10237}$ exactly (equal to
+  $S_1(6)+N_1(6)$ from the label-$6$ ground truth of
+  \S\ref{sec:invariants}), and the six values
+  $U_1(i)$, $i\neq6$, are the roots of the exact monic sextic with
+  common denominator $50019668646075143$:
+  \begin{center}\small\SexticTable\end{center}
+  Each of the six independently computed roots satisfies $f$ to
+  $6\times10^{-88}$.
+\item $f$ is irreducible over $\QQ$ with
+  $\operatorname{Gal}=S_6$ (6T16), verified independently by
+  \textsc{SymPy}, by a Frobenius inventory (below), and by a Magma
+  referee run (receipt \path{magma-sextic-referee-ledger.txt}).
+\item Replication and field identity: $U_2=S_2+N_2$ independently
+  yields a second exact irreducible sextic $f_2$ with Galois closure
+  of group $S_6$ and $U_2(6)=\tfrac{54447}{142129}$, consistent with
+  the label-$6$ anchors. Moreover --- purely symbolically, with no
+  numerical input --- $f_2$ acquires a linear factor over
+  $\QQ[x]/(f_1)$: the two independently descended coordinates
+  generate the \emph{same} sextic field $F$. This compatibility is
+  an exact statement about the two displayed polynomials,
+  independent of any numerics; the explicit isomorphism certificate
+  is displayed in Appendix~\ref{app:beta}.
+\item Frobenius inventory over $199$ good primes (the first $199$
+  primes coprime to the sextic denominator and to the discriminant
+  numerator, excluding $23$): nine distinct cycle types observed,
+  with frequencies consistent with $S_6$ Chebotarev densities (the
+  two absent classes are those of smallest density). Over the $94$
+  \emph{split} primes $\bigl(\tfrac{-23}{p}\bigr)=+1$, whose
+  Frobenii sample $\rho(\GK)$, the \emph{odd} classes $(1,2,3)$,
+  $(6)$, $(1,1,4)$ occur $52$ times. This inventory serves as
+  replication; the exact statement is Proposition~\ref{prop:gk}
+  below.
+\item The commutator-class experiment of
+  Remark~\ref{rem:commutator} is settled: the six-point orbit crosses
+  the partition $\{1,2,3,4\}\,|\,\{5,6,7\}$, so the arithmetic action
+  does not stabilize it.
+\end{enumerate}
+
+\begin{proposition}[exact form of $\rho(\GK)=S_6$]\label{prop:gk}
+Assume the recognitions of Numerical
+Result~\ref{thm:partition}, and let $L$ be the splitting field of
+$f$, so $\operatorname{Gal}(L/\QQ)=S_6$. Then $L\cap K=\QQ$ and
+$\operatorname{Gal}(LK/K)\cong S_6$; consequently
+$\rho(\GK)=S_6$.
+\end{proposition}
+
+\begin{proof}
+An $S_6$-extension of $\QQ$ has a unique quadratic subfield, the
+fixed field of $A_6$, namely
+$\QQ(\sqrt{\operatorname{disc}f})$. Complex conjugation acts on the
+six roots with cycle type $2^21^2$ (Theorem~\ref{thm:kappa}), an
+\emph{even} permutation; it therefore lies in $A_6$ and fixes the
+quadratic subfield pointwise, so that subfield is real
+(equivalently $\operatorname{disc}f>0$, as the signature $(2,2)$
+forces). Since $K$ is imaginary quadratic, $K\not\subset L$, hence
+$L\cap K=\QQ$ and restriction is an isomorphism
+$\operatorname{Gal}(LK/K)\xrightarrow{\;\sim\;}
+\operatorname{Gal}(L/\QQ)=S_6$. The action of $\GK$ on the six
+points is the action of $\operatorname{Gal}(LK/K)$ on the roots of
+$f$, which is therefore all of $S_6$.
+\end{proof}
+
+\begin{remark}[the compositum explains the degree-$12$ wall]
+$F$ has two real embeddings, hence contains no imaginary quadratic
+field; so $F\cap K=\QQ$ and $[FK:\QQ]=12$, $[FK:K]=6$. The
+$\sqm$-marked invariants of the six non-rational points naturally
+generate subfields of $FK$: the degree-$12$ heights first encountered
+by the marked computation were the compositum announcing itself.
+\end{remark}
+
+\subsection*{Local structure at $23$}
+The rescaling $t\mapsto t/\sqm$, defined over $K$, moves the branch
+locus to $(0,1,-1)$: the apparent collision of $0,\pm\sqm$ modulo
+the prime above $23$ is a coordinate artifact, not an intrinsic
+degeneration of the configuration. (No good-reduction claim at
+other primes is intended: in the rescaled model $1$ and $-1$
+collide modulo $2$, and $2$ divides the order of the $2A$
+monodromy; no prime other than $23$ is analyzed here.) What singles
+out $23$ is that it divides \emph{two} of the three local monodromy
+orders --- the setting of stable reduction of three-point covers
+with cyclic $p$-Sylow subgroup (Raynaud; Bouw--Wewers; Obus
+\cite{ObusI,ObusII}). At $p=23$ the local decomposition of the
+Hurwitz algebra is strikingly asymmetric.
+
+\begin{proposition}[local factorization at $23$]\label{prop:local23}
+$F\otimes\QQ_{23}\simeq F_2\times F_4$ with
+$(e,f)=(2,1)$ and $(4,1)$ respectively; both extensions are totally
+ramified and tame. Hence the seven-point Hurwitz algebra decomposes
+locally as
+\[
+  \QQ_{23}\;\times\;F_2\;\times\;F_4 ,
+\]
+tame inertia at $23$ acts on the seven points with cycle type
+$(1)(2)(4)$, and \emph{label $6$ is the unique inertia-fixed point of
+the fiber at $23$}.
+\end{proposition}
+
+\begin{proof}[Proof (certificate)]
+$f\bmod 23=(x+13)^2(x+9)^4$. The quartic cluster has a single Newton
+segment of slope $-1/4$ (Eisenstein--Dumas: a totally ramified
+quartic); the quadratic cluster has odd $23$-adic discriminant
+valuation ($v_{23}(\operatorname{disc}f)=6=3+3$ with vanishing
+cross-resultant valuation, the clusters lying at distinct residues),
+hence is ramified. Both indices are prime to $23$ (tame). The
+factorization, ramification indices, and residue degrees are
+independently confirmed by a Magma computation over
+$\QQ_{23}$ (\texttt{magma-local23-referee-ledger.txt}).
+\end{proof}
+
+\begin{remark}[towards a mechanism]
+We emphasize the careful reading: Proposition~\ref{prop:local23}
+exhibits label $6$ as the unique \emph{inertia}-fixed point at
+$23$ --- a local distinction, weaker than global rationality, but
+the first structural property found that singles out label $6$. Two remarks situate it in the stable-reduction
+theory for cyclic $p$-Sylow (here $P=C_{23}$ of order exactly $23$,
+$N_{\Mtw}(P)\cong 23{:}11$, so $m=|N/C|=11$). First, the proven
+theorems of \cite{ObusI,ObusII} do not cover $\Mtw$: part~I assumes
+$G$ $p$-solvable, part~II assumes $m=2$. However, for $|P|=p$ their
+conclusion pattern --- vanishing of the first higher ramification
+groups, i.e.\ \emph{tameness} of the field of moduli at $p$ --- is
+exactly what Proposition~\ref{prop:local23} establishes for
+$\Mtw$ with $m=11$: our data is a new data point consistent with
+the expected phenomenology outside the proven range. Second, the
+sharply posed open question: \emph{derive the inertia cycle type
+$(1)(2)(4)$ --- and the identity of the fixed point --- from the
+deformation data of the stable model at $23$, without using $f$}.
+An affirmative answer would explain why this point is locally
+distinguished; the remaining gap to global rationality would then be
+the passage from the decomposition group at $23$ to all of $\GQ$.
+\end{remark}
+
+\PtwoHundredLine
+
+% ================================================================== GT
+\section{Finite Grothendieck--Teichm\"uller constraints}\label{sec:gt}
+
+The computations above determine \emph{what} the Galois set of seven
+points is; the question of \cite{HJLPPZ} --- \emph{why} is there a
+fixed point --- asks for a structural cause. In this section we prove
+a sharp negative result: the finite-level Grothendieck--Teichm\"uller
+constraints attached to $\Mtw$ impose \emph{no} restriction at all on
+permutations of the seven. Whatever forces the fixed point is
+invisible at this level.
+
+For a finite group $G$, Guillot \cite{Guillot} defines groups
+$\mathcal{GT}(G)\supseteq\mathcal{GT}_1(G)$ acting on the set
+$\mathscr{P}_c(G)$ of generating pairs of $G$ up to simultaneous
+conjugacy, compatibly with the tower defining Drinfeld's
+$\widehat{\mathcal{GT}}\supseteq G_\QQ$; the operators
+$\theta\cdot[g,h]_c=[h,g]_c$ and
+$\delta\cdot[g,h]_c=[h^{-1}g^{-1},h]_c$ generate an
+$S_3$ of tautological symmetries. For $G$ simple and non-abelian he
+proves the remarkable identification
+\[
+  \mathcal{GT}_1(G)\;\cong\;\mathscr{S}(G)
+  \;:=\;C_{\operatorname{Sym}(\mathscr{P}_c)}\!\bigl(\operatorname{Out}(G)
+  \times\langle\theta,\delta\rangle\bigr)\;\cap\;Y,
+\]
+where $Y$ is the subgroup preserving the partition of
+$\mathscr{P}_c$ by ordered class-vectors, and moreover
+\cite[Prop.~4.12]{Guillot} that $\mathscr{S}(G)$ is a product of
+wreath products $E_k\wr S_{r_k}$, one factor per equivalence class of
+$\langle\theta,\delta\rangle\times\operatorname{Out}(G)$-orbits, with
+$E_k$ a subquotient of the acting group.
+
+\begin{theorem}[no constraint at the $\Mtw$-level]\label{thm:gt}
+The image of $\mathcal{GT}_1(\Mtw)$ in the symmetric group of the
+set $\Ni(2A,23A,23B)^{\mathrm{in}}$ is the full $S_7$.
+\end{theorem}
+
+\begin{proof}
+$\operatorname{Out}(\Mtw)=1$, so the acting group is
+$H=\langle\theta,\delta\rangle\cong S_3$. The six ordered
+class-vectors in the $H$-orbit of $(2A,23A)$ are pairwise distinct
+(inversion exchanges $23A$ and $23B$ since $-1$ is a quadratic
+non-residue mod $23$), so $H$ acts freely on the $42$ pair-classes
+lying over them, with seven orbits --- one for each Nielsen class ---
+and every orbit meets each of the six class-vector blocks in exactly
+one point. These seven $H$-orbits are therefore equivalent in the
+sense of \cite[Prop.~4.12]{Guillot}, and the corresponding wreath
+factor of $\mathscr{S}(\Mtw)$ is $E\wr S_7$, where $E$ consists of
+the $H$-equivariant self-maps of one free orbit preserving each block
+singleton. An $H$-equivariant self-map of a free orbit is right
+translation by some $s\in H$, which preserves the six singletons iff
+$s=1$; hence $E=1$ and the factor is $S_7$, acting by arbitrary
+permutation of the seven orbits. Since
+$\mathcal{GT}_1(\Mtw)\cong\mathscr{S}(\Mtw)$, the restriction to the
+seven Nielsen classes is all of $S_7$.
+\end{proof}
+
+\subsection*{Scope}
+Theorem~\ref{thm:gt} concerns the \emph{single finite level}
+$\mathcal{GT}_1(\Mtw)$. The comparison with the global
+Grothendieck--Teichm\"uller action is inverse-limit in nature:
+information at different finite levels must satisfy simultaneous
+compatibility conditions, and cross-level compatibilities (for
+instance those
+exploited by Belyi-extending constructions, which compare the
+$\Mtw$-projection with projections at other monodromy groups) are
+\emph{not} eliminated by Theorem~\ref{thm:gt}. What the theorem does
+show is that every invariant internal to the single level ---
+every quantity attached functorially to
+$\mathscr{P}_c(\Mtw)$ alone --- is constant on the seven. Our
+finite-depth searches through cross-level constructions
+(postcomposition by Belyi-extending maps of outer degree $\le 12$
+with all recolorings; square-root and pullback probes) found no
+constraint either, but that remains an empirical statement about
+finite search depth, not a structural one.
+
+\begin{remark}[cyclotomic remark, in its correct strength]
+$K=\QQ(\sqm)$ is the quadratic subfield of $\QQ(\zeta_{23})$, and
+$23A$, $23B$ are exchanged exactly by non-residue powering. For
+$\sigma\in\GK$ the mod-$23$ cyclotomic character lies in
+$(\mathbb{F}_{23}^\times)^2\cong C_{11}$, and since $11\nmid 7!$,
+\emph{no nontrivial permutation of the seven can factor solely
+through the quadratic-residue cyclotomic quotient}. This does not
+decompose a Galois element into a cyclotomic part and an
+$f_\sigma$-part --- the permutation induced by $(\lambda,f)$ depends
+on both jointly --- and we do not claim the ``cyclotomic part'' of
+the action is trivial in any stronger sense.
+\end{remark}
+
+\begin{remark}[a separating, non-GT invariant]\label{rem:commutator}
+The class of the commutator $[x,y]$ \emph{does} separate the seven:
+labels $1,2,3,4$ have $[x,y]$ of order $4$ (cycle type
+$4^42^21^3$) and labels $5,6,7$ of order $6$ (type $6^23^22^21$),
+uniformly over all six recolorings. By Theorem~\ref{thm:gt} this
+partition \emph{cannot} be $\mathcal{GT}_1(\Mtw)$-invariant --- an
+instructive example of how natural generating-pair invariants fail
+to be Galois-functorial. The computation of
+\S\ref{sec:partition} settles the question negatively: the
+six-point $\GQ$-orbit crosses $\{1,2,3,4\}\,|\,\{5,6,7\}$, so the
+arithmetic action does \emph{not} stabilize this partition (it is
+merely $\kap$-stable).
+\end{remark}
+
+\subsection*{The sharpened question}
+The comparison with the inverse limit requires care about which
+Galois group enters: the tower of level-one groups
+$\mathcal{GT}_1(G)$ receives not $G_\QQ$ itself but its derived
+subgroup $G_\QQ'$ \cite{Guillot}. Since
+$\rho(G_\QQ)\cong S_6$ surjectively onto the six-point orbit
+(Numerical Result~\ref{thm:partition}), the image of the derived
+subgroup is $\rho(G_\QQ')=[S_6,S_6]=A_6$, and the correct chain is
+\[
+  A_6\;=\;\rho(G_\QQ')
+  \;\subseteq\;
+  \operatorname{im}\bigl(\widehat{\mathcal{GT}}_1\to
+  \mathcal{GT}_1(\Mtw)\bigr)\Big|_{H}
+  \;\subseteq\;
+  \mathcal{GT}_1(\Mtw)\Big|_{H}\;=\;S_7 ,
+\]
+in which Theorem~\ref{thm:gt} identifies the outermost group and
+eliminates it as an explanation: \emph{the existence of the rational
+point is not forced by the $\Mtw$-level Grothendieck--Teichm\"uller
+constraints}. The single finite level places no restriction on the
+seven points. The image of the global inverse-limit group is
+potentially smaller --- any of $A_6$, $S_6$, $A_7$, $S_7$ is
+compatible with the chain --- but determining it requires
+cross-level compatibility information not computed here.
+
+Numerical Result~\ref{thm:partition} determines the arithmetic image
+itself, and the answer is as sharp as it could be:
+\[
+  A_{\mathrm{arith}}\;=\;\rho(G_\QQ)\;=\;
+  \operatorname{Stab}_{S_7}(6)\;\cong\;S_6 ,
+\]
+\emph{the largest subgroup of $S_7$ compatible with fixing label
+$6$} --- and already $\rho(\GK)=S_6$. The arithmetic action is
+maximally mixing everywhere the fixed point permits: the action on
+the six-point orbit is primitive, so it admits no nontrivial
+invariant partition, and the quadratic field $K$ does not appear in
+the Galois closure of the sextic
+(Proposition~\ref{prop:gk}). The question of \cite{HJLPPZ} is
+thereby concentrated into a single sharp statement: \emph{the entire
+symmetry breaking is
+\[
+  S_7 \rightsquigarrow \operatorname{Stab}_{S_7}(6),
+\]
+one rational point, and otherwise maximal Galois mixing. Why does
+arithmetic single out label $6$ --- and nothing else?}
+
+% ============================================================ ARTIFACTS
+\section{Verification and artifacts}\label{sec:artifacts}
+
+All computations, receipts, and the Lean development are contained in
+the artifact repository
+\url{https://github.com/azide0x37/m23-seven-points}, archived with a
+DOI at publication.
+The receipt files are JSON with self-describing gates; each
+computational claim above names its receipt. Independent
+implementations: (a) a Python enumeration (bytes-encoded permutation
+BFS), (b) a from-scratch re-implementation used by the Lean
+certificate generator, (c) a Magma referee script (census,
+generation, and $\kap$-certificates), run on the public Magma
+calculator. An in-progress Lean~4 development encodes and checks
+the small finite certificates (kernel-checked \texttt{decide}
+proofs, with a single quarantined \texttt{native\_decide}
+enumeration); the full census build and the glue lemmas connecting
+those certificates to the paper's theorem statements are
+incomplete, and no end-to-end formal verification is claimed here.
+
+The analytic layer is validated as described in \S\ref{sec:powser};
+we emphasize that the final arbiter for every recognized algebraic
+number is integer-relation margin plus cross-implementation
+agreement. \PtwoHundredArtifactLine
+
+\subsection*{Acknowledgments}
+The author thanks Bjorn Poonen for correspondence concerning
+\cite{HJLPPZ}, including confirmation that the authors independently
+computed the action of complex conjugation. The computations were
+carried out with the assistance of Claude (Anthropic), operating the
+author's computational infrastructure. All computational claims are
+supported by the receipts and independent referee runs described in
+this section; the theoretical claims are supported by the proofs and
+references given in the text.
+
+% ============================================================ APPENDIX
+\appendix
+
+\section{Representatives and certificates}\label{app:reps}
+
+\begin{center}
+\small
+\GeneratorsTable
+\end{center}
+
+\medskip
+Anchored representatives (labels of Convention~\ref{conv:group},
+with label $6$ the class of the triple printed in
+\cite{HJLPPZ}); every Nielsen
+class is represented by the pair $(g_1,y_i)$:
+\begin{center}
+\small
+\RepsTable
+\end{center}
+
+\medskip
+\CGensLine.
+
+\medskip
+$\kap$-certificates ($\sigma=(1\,2)(5\,7)$):
+\begin{center}
+\small
+\KappaCertsTable
+\end{center}
+
+\section{Computation parameters}\label{app:params}
+
+\begin{center}
+\ParamsTable
+\end{center}
+
+\section{The field-identity certificate}\label{app:beta}
+
+Let $\alpha$ be a root of the sextic $f=f_1$ displayed in Numerical
+Result~\ref{thm:partition}, and let $f_2$ be the second descended
+sextic:
+\begin{center}\small\SexticTwoTable\end{center}
+
+\medskip
+The element $\beta=\sum_{k=0}^{5} r_k\,\alpha^k\in\QQ[\alpha]/(f_1)$
+with the coefficients below satisfies $f_2(\beta)=0$. The
+verification is the exact polynomial-remainder identity
+$f_2(g(x))\equiv 0 \pmod{f_1(x)}$ for $g(x)=\sum_k r_kx^k$ in
+$\QQ[x]$ (receipt \texttt{iso-beta-receipt.json}); hence the two
+independently recognized sextics define the same field $F$.
+\begin{center}\small\IsoBetaTable\end{center}
+
+\begin{thebibliography}{HJLPPZ}
+
+\bibitem[HJLPPZ]{HJLPPZ}
+X.~Huang, B.~Jackson, K.-H.~Lee, B.~Poonen, R.~Pries, S.~Zhang,
+\emph{The Mathieu group $M_{23}$ is a Galois group over
+$\mathbb{Q}$}, preprint (2026), arXiv:2608.08538.
+
+\bibitem[Fri77]{Fried77}
+M.~Fried, \emph{Fields of definition of function fields and Hurwitz
+families --- groups as Galois groups}, Comm. Algebra \textbf{5}
+(1977), 17--82.
+
+\bibitem[DD97]{DebesDouai}
+P.~D\`ebes, J.-C.~Douai, \emph{Algebraic covers: field of moduli
+versus field of definition}, Ann. Sci. \'Ecole Norm. Sup. (4)
+\textbf{30} (1997), 303--338.
+
+\bibitem[KMSV14]{KMSV}
+M.~Klug, M.~Musty, S.~Schiavone, J.~Voight, \emph{Numerical
+calculation of three-point branched covers of the projective line},
+LMS J. Comput. Math. \textbf{17} (2014), 379--430, arXiv:1311.2081.
+
+\bibitem[VW14]{VoightWillis}
+J.~Voight, J.~Willis, \emph{Computing power series expansions of
+modular forms}, in \emph{Computations with modular forms}, Contrib.
+Math. Comput. Sci. \textbf{6}, Springer (2014), 331--361,
+arXiv:1205.0045.
+
+\bibitem[Bel]{BelyiRepo}
+M.~Musty et al., \emph{Belyi maps database and computation package},
+\url{https://github.com/michaelmusty/Belyi} (MIT license); standalone
+solver \texttt{Cext/powser\_arnoldi.c}.
+
+\bibitem[Gui]{Guillot}
+P.~Guillot, \emph{The Grothendieck--Teichm\"uller group of a finite
+group and $G$-dessins d'enfants}, in \emph{Symmetries in graphs,
+maps and polytopes}, Springer Proc.\ Math.\ Stat.\ \textbf{159}
+(2016), 159--191, DOI 10.1007/978-3-319-30451-9\_8,
+arXiv:1407.3112.
+
+\bibitem[Ob11a]{ObusI}
+A.~Obus, \emph{Fields of moduli of three-point $G$-covers with
+cyclic $p$-Sylow, I}, Algebra Number Theory \textbf{6} (2012),
+no.~5, 833--883, arXiv:0911.1103.
+
+\bibitem[Ob11b]{ObusII}
+A.~Obus, \emph{Fields of moduli of three-point $G$-covers with
+cyclic $p$-Sylow, II}, J.\ Th\'eor.\ Nombres Bordeaux \textbf{25}
+(2013), no.~3, 579--633, arXiv:1001.3723.
+
+\bibitem[ATLAS]{ATLAS}
+J.~H.~Conway, R.~T.~Curtis, S.~P.~Norton, R.~A.~Parker,
+R.~A.~Wilson, \emph{Atlas of Finite Groups}, Oxford Univ.\ Press,
+1985. (For $\operatorname{Out}(\Mtw)=1$ and the power map on the
+classes $23A$, $23B$.)
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,29 @@
+{
+  "title": "Artifacts: The Galois action on the seven M23 Hurwitz points",
+  "description": "Computational artifacts for the paper: machine-checkable receipts, the full numerical pipeline (power-series models, marked Petri invariants, trace/norm descent, exact sextic recognition, Frobenius inventory, 23-adic certificates), Magma referee scripts with verbatim ledgers, and the in-progress Lean 4 formalization of the finite combinatorial core. One-command reproduction from the stored solver outputs to every table in the paper (pipeline/reproduce_p100.py).",
+  "creators": [
+    {
+      "name": "Templeton, Alexander West"
+    }
+  ],
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "MIT",
+  "keywords": [
+    "inverse Galois problem",
+    "Mathieu group M23",
+    "Hurwitz spaces",
+    "Nielsen classes",
+    "Belyi maps",
+    "Grothendieck-Teichmuller",
+    "computational number theory"
+  ],
+  "related_identifiers": [
+    {
+      "relation": "cites",
+      "identifier": "arXiv:2608.08538",
+      "resource_type": "publication-preprint"
+    }
+  ],
+  "notes": "After the paper is posted, add {relation: isSupplementTo, identifier: arXiv:<paper id>} and re-deposit."
+}

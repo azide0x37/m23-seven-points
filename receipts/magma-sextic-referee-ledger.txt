@@ -1,0 +1,21 @@
+# Magma referee ledger — descended sextics, 2026-08-21
+# Source: magma-sextic-referee.m (989 bytes), single paste into the free
+# Magma calculator, run by Alex.
+# Verifies: irreducibility over Q and Galois group of the two
+# independently-derived descended sextics (U1 = S1+N1, U2 = S2+N2) for
+# the six-point orbit {1,2,3,4,5,7}.
+#
+# Output, verbatim:
+
+f1 irreducible: true
+f2 irreducible: true
+f1: order 720 id 16 6
+f2: order 720 id 16 6
+PASS iff both orders 720, ids 16
+
+# Status: PASS. Both sextics irreducible with Gal = 6T16 = S6, confirming
+# (1) the partition 1+6 (irreducibility = single G_Q-orbit of the six),
+# (2) B = rho(G_Q)|_six = S6, independently of the sympy computation.
+# Combined with the flint Frobenius inventory (96 split primes showing odd
+# classes => rho(G_K) not inside A6 => rho(G_K) = S6), the final result:
+#   rho(G_Q) = Stab_{S7}(label 6) ~= S6,  rho(G_K) = S6.

@@ -1,0 +1,12 @@
+{
+ "degcap": 12,
+ "with_recolorings": true,
+ "n_words": 342,
+ "n_classes": 1722,
+ "seconds": 81.3,
+ "nontrivial_words": {},
+ "A_size": 5040,
+ "A": "large",
+ "verdict": "NULL: A = S7 (no constraint)",
+ "_provenance": "Mnemosyne job 50-20260820T220804Z-003, exit 0, 81.3s, receipt sha ef-chain in results-py"
+}

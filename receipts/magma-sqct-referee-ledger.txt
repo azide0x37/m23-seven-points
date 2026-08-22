@@ -1,0 +1,29 @@
+# Magma referee ledger — bare SqCt null, 2026-08-20
+# Source: magma-sqct-referee.m (2,851 bytes), single paste into the free
+# Magma calculator (magma.maths.usyd.edu.au/calc), run by Alex.
+# Verifies: the seven Ni(2A,23A,23B) representatives (product identity in
+# right-action form Z*Y*X = Id, orders 2/23/23, generation of M23) and the
+# square-root-cycle-type base null over both orientations x 23 transporter
+# candidates per label.
+#
+# Output, verbatim:
+
+GEN_ORDER 10200960
+GEN_ORDER 10200960
+GEN_ORDER 10200960
+GEN_ORDER 10200960
+GEN_ORDER 10200960
+GEN_ORDER 10200960
+GEN_ORDER 10200960
+SEVEN_OK true
+M23_SQCT_BASE: 0 0 0 0 0 0 0
+PASS true
+
+# Status: the bare SqCt null is now TRIPLE-confirmed by independent
+# implementations — (1) Phase A reviewer's 161-candidate check, (2) this
+# session's 322-candidate Python check (both orientations; plus the
+# structural cycle-type census: no transporter candidate has the 4^4 2^a 1^b
+# shape required of a square root of 2^8 1^7), (3) this Magma run.
+# Next per the diagram-chase work order: GAP copy-conjugator + label
+# dictionary (Phase A's MathieuGroup(23) copy vs our paper copy), then the
+# SqCt∘β prefilter scan on outer-degree ≤ 6 operation words.

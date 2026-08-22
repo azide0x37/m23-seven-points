@@ -1,0 +1,26 @@
+# Magma referee ledger — 23-adic factorization of the descended sextic
+# 2026-08-21. Source: magma-local23-referee.m (881 bytes), single paste
+# into the free Magma calculator, run by Alex.
+# Verifies: factorization of the exact sextic f over Q_23 with
+# ramification/inertia data per local factor.
+#
+# Output, verbatim:
+
+LOCAL23_FACTORS [ 4, 2 ]
+LOCAL23_E [ 4, 2 ]
+LOCAL23_F [ 1, 1 ]
+LOCAL23_TAME true
+PASS iff FACTORS [2,4] (any order), E [2,4], F [1,1], TAME true
+
+# Status: PASS. Confirms the Newton-polygon derivation independently:
+#   F (x) Q_23 = F_4 x F_2,  e = (4, 2),  f = (1, 1),  tame (4, 2 prime to 23).
+# Hence the seven-point Hurwitz algebra over Q_23 is
+#   Q_23 x F_2 x F_4,
+# tame inertia at 23 acts on the seven points with cycle type (1)(2)(4),
+# and label 6 is the UNIQUE inertia-fixed point of the fiber at 23.
+# (Framing note, corrected 2026-08-21: the "branch-point collision at 23"
+# is a coordinate artifact — t -> t/sqrt(-23) gives the configuration good
+# reduction everywhere; the intrinsic fact is that 23 divides two of the
+# three inertia orders, so the COVER has bad reduction at 23 and only
+# there.) Stable-reduction target: derive (1)(2)(4) without using f
+# (see stable-reduction-target.md).

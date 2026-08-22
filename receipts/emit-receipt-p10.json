@@ -1,0 +1,20 @@
+{
+ "prec": 10,
+ "prec_bits": 128,
+ "k": 2,
+ "dim": 4,
+ "nv": 1,
+ "N": 1219,
+ "Q": 1235,
+ "NN": 1220,
+ "epsdigs": 6,
+ "cmaxiter": 80,
+ "rho": 0.9812834897968066,
+ "maxwp": 0.9811749260941551,
+ "MAXWP_LE_RHO": true,
+ "n_lines": 8587,
+ "n_lines_expected": 8587,
+ "LINES_OK": true,
+ "outfile": "label6-carnoldi-p10.txt",
+ "PASS": true
+}

@@ -1,0 +1,143 @@
+{
+ "J1": {
+  "all_in_K": false,
+  "coeffs": [
+   {
+    "k": 0,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   },
+   {
+    "k": 1,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   },
+   {
+    "k": 2,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   },
+   {
+    "k": 3,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   },
+   {
+    "k": 4,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   },
+   {
+    "k": 5,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   }
+  ]
+ },
+ "J3": {
+  "all_in_K": false,
+  "coeffs": [
+   {
+    "k": 0,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   },
+   {
+    "k": 1,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   },
+   {
+    "k": 2,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   },
+   {
+    "k": 3,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   },
+   {
+    "k": 4,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   },
+   {
+    "k": 5,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   }
+  ]
+ },
+ "J5": {
+  "all_in_K": false,
+  "coeffs": [
+   {
+    "k": 0,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   },
+   {
+    "k": 1,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   },
+   {
+    "k": 2,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   },
+   {
+    "k": 3,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   },
+   {
+    "k": 4,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   },
+   {
+    "k": 5,
+    "ok": false,
+    "margin_log10": null,
+    "re": null,
+    "im_s23": null
+   }
+  ]
+ }
+}
