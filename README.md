@@ -81,6 +81,23 @@ the small finite certificates; the full census build and the glue
 lemmas are incomplete, and no end-to-end formal verification is
 claimed.
 
+## AI assistance
+
+This project made extensive use of AI systems, principally Claude
+(Anthropic) and ChatGPT (OpenAI), throughout: exploratory
+mathematical discussion, proposing and criticizing candidate
+approaches, literature triage, generation and debugging of
+computational code, orchestration and analysis of numerical
+experiments, and drafting and editing the manuscript under the
+author's direction. The author selected the research questions,
+determined which claims to pursue, executed or supervised the
+computations, evaluated the evidence, and takes responsibility for
+all claims. AI-generated suggestions were not treated as
+mathematical evidence — which is precisely why this repository
+exists: every computational claim is backed by receipts, independent
+referee runs, and a one-command reproduction. The disclosure is part
+of the method.
+
 ## Licensing
 
 - Code, data, and receipts in this repository: MIT

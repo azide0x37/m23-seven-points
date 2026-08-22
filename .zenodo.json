@@ -1,6 +1,6 @@
 {
   "title": "Artifacts: The Galois action on the seven M23 Hurwitz points",
-  "description": "Computational artifacts for the paper: machine-checkable receipts, the full numerical pipeline (power-series models, marked Petri invariants, trace/norm descent, exact sextic recognition, Frobenius inventory, 23-adic certificates), Magma referee scripts with verbatim ledgers, and the in-progress Lean 4 formalization of the finite combinatorial core. One-command reproduction from the stored solver outputs to every table in the paper (pipeline/reproduce_p100.py).",
+  "description": "Computational artifacts for the paper: machine-checkable receipts, the full numerical pipeline (power-series models, marked Petri invariants, trace/norm descent, sextic recognition, Frobenius inventory, 23-adic certificates), Magma referee scripts with verbatim ledgers, and the in-progress Lean 4 formalization of the finite combinatorial core. One-command reproduction from the stored solver outputs to every table in the paper (pipeline/reproduce_p100.py). The project made extensive, fully disclosed use of AI systems (Claude, Anthropic; ChatGPT, OpenAI) for exploration, code, analysis, and manuscript drafting under the author's direction; AI-generated suggestions were not treated as mathematical evidence, and every computational claim carries reproducible artifacts and independent checks.",
   "creators": [
     {
       "name": "Templeton, Alexander West"
