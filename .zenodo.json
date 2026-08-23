@@ -23,6 +23,36 @@
       "relation": "cites",
       "identifier": "arXiv:2608.08538",
       "resource_type": "publication-preprint"
+    },
+    {
+      "relation": "cites",
+      "identifier": "arXiv:1311.2081",
+      "resource_type": "publication-article"
+    },
+    {
+      "relation": "cites",
+      "identifier": "arXiv:1205.0045",
+      "resource_type": "publication-article"
+    },
+    {
+      "relation": "cites",
+      "identifier": "10.1007/978-3-319-30451-9_8",
+      "resource_type": "publication-article"
+    },
+    {
+      "relation": "cites",
+      "identifier": "arXiv:0911.1103",
+      "resource_type": "publication-article"
+    },
+    {
+      "relation": "cites",
+      "identifier": "10.5802/jtnb.850",
+      "resource_type": "publication-article"
+    },
+    {
+      "relation": "cites",
+      "identifier": "https://github.com/michaelmusty/Belyi",
+      "resource_type": "software"
     }
   ],
   "notes": "This release is the version of record for the paper and its computational artifacts; related identifiers may be extended upon later venue publication."
