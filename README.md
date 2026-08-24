@@ -1,14 +1,18 @@
 # The Galois action on the seven M23 Hurwitz points
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22063041.svg)](https://doi.org/10.5281/zenodo.22063041)
+[![Paper DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22073397.svg)](https://doi.org/10.5281/zenodo.22073397)
+[![Artifacts DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22063041.svg)](https://doi.org/10.5281/zenodo.22063041)
 
-**Paper (PDF): [paper/main.pdf](paper/main.pdf)** · LaTeX source:
-[paper/main.tex](paper/main.tex)
+**Paper (preprint, CC BY 4.0):
+[DOI 10.5281/zenodo.22073397](https://doi.org/10.5281/zenodo.22073397)**
+· [PDF in-repo](paper/main.pdf) · [LaTeX source](paper/main.tex)
 
 Computational artifacts for *The Galois action on the seven M23
 Hurwitz points* (Alexander West Templeton, 2026). This repository is
-the artifact of record. Cite the archived release:
-[v1, DOI 10.5281/zenodo.22063042](https://doi.org/10.5281/zenodo.22063042)
+the artifact of record. **Cite the paper:**
+[10.5281/zenodo.22073397](https://doi.org/10.5281/zenodo.22073397).
+Cite the artifacts release:
+[v1, 10.5281/zenodo.22063042](https://doi.org/10.5281/zenodo.22063042)
 (all versions: [10.5281/zenodo.22063041](https://doi.org/10.5281/zenodo.22063041)).
 
 ## What the paper establishes
