@@ -23,9 +23,20 @@ among the seven Hurwitz points of Ni(2A, 23A, 23B), noting they had no
 conceptual explanation for the fixed point. This paper determines the
 Galois action on the full seven-point fiber.
 
+- **Forced by parity.** Complex conjugation is an involution on the
+  seven-point unmarked Hurwitz fiber over Q. Its nonfixed points
+  come in pairs, so at least one real Hurwitz point is forced before
+  computing the permutation. This gives a real embedding of a field
+  of moduli.
 - **Exact.** Complex conjugation acts as (1 2)(5 7), fixing labels
   3, 4, 6 — proved by finite anchored certificates, three independent
-  implementations, and a Magma referee run.
+  implementations, and a Magma referee run. Thus the fiber has
+  exactly three real points, a computed refinement of the parity
+  bound.
+- **Arithmetic.** A rational point must be fixed by all of G_Q.
+  Neither parity nor the exact conjugation count implies one.
+  The rational point established by Huang et al. is label 6 in this
+  repository; conjugation alone leaves labels 3, 4, 6 as candidates.
 - **Exact.** The finite-level Grothendieck–Teichmüller group
   GT_1(M23) induces the full S7 on the seven classes: the symmetry
   breaking is not forced at this level.
